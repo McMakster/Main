@@ -1,0 +1,125 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+   
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="Content/bootstrap/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/respond.min.js"></script>
+    <script src="Scripts/html5shiv.min.js"></script>
+     
+    <link href="StyleSheet.css" rel="stylesheet" />
+   
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+
+        <!-- My sitemap datasource-->
+        <asp:SiteMapDataSource ID="AdminSiteMapDataSource" runat="server" SiteMapProvider="AdminSitemap" />
+        <asp:SiteMapDataSource ID="UserSiteMapDataSource" runat="server" SiteMapProvider="UserSitemap" />
+
+
+    <div id="wrapper">
+        <div id="header">
+            <div id="logo">
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/noir_logo_small.png" />
+                </div>
+           
+             <div id="LogoLogin" > 
+                <asp:LoginView ID="LoginView1" runat="server">
+                    <AnonymousTemplate>
+              Welcome: Guest, <asp:LoginStatus ID="LoginStatus1" runat="server" />
+            </AnonymousTemplate>
+            <LoggedInTemplate>
+              Welcome: <asp:LoginName ID="LoginName1" runat="server" />, 
+              <asp:LoginStatus ID="LoginStatus2" runat="server" LogoutPageUrl="loggedout.aspx" LogoutAction="Redirect" />
+            </LoggedInTemplate>
+                </asp:LoginView>
+             </div>
+             
+        </div>
+        <div id="RealMenu">
+            <asp:LoginView ID="LoginView2" runat="server">
+
+                <AnonymousTemplate>
+        <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" Orientation="Horizontal" StaticDisplayLevels="2" CssClass="MenuHeader" StaticSelectedStyle-BorderStyle="None">
+            <StaticMenuItemStyle CssClass="MenuHeader" />
+            <StaticMenuStyle CssClass="MenuHeader" />
+        </asp:Menu>
+                 </AnonymousTemplate>
+                     <RoleGroups>
+
+                          
+                         <asp:RoleGroup Roles="User">
+                      <ContentTemplate>
+                          <asp:Menu ID="Menu1" runat="server" DataSourceID="UserSiteMapDataSource" Orientation="Horizontal" StaticDisplayLevels="2" CssClass="MenuHeader">
+            <StaticMenuItemStyle CssClass="MenuHeader" />
+            <StaticMenuStyle CssClass="MenuHeader" />
+                              </asp:Menu>
+                      </ContentTemplate>
+                             </asp:RoleGroup>
+
+                  <asp:RoleGroup Roles="Admin">
+                      <ContentTemplate>
+                          <asp:Menu ID="Menu1" runat="server" DataSourceID="AdminSiteMapDataSource" Orientation="Horizontal" StaticDisplayLevels="2" CssClass="MenuHeader">
+            <StaticMenuItemStyle CssClass="MenuHeader" />
+            <StaticMenuStyle CssClass="MenuHeader" />
+                              </asp:Menu>
+                      </ContentTemplate>
+                  </asp:RoleGroup>
+                     </RoleGroups>
+                </asp:LoginView>
+        </div>
+
+        <div id="myCarousel" class="carousel slide container" data-ride="carousel" >
+				 <!-- Indicators -->
+				
+				<div class="carousel-inner">
+					<div class="item active">
+                        <asp:HyperLink ID="HyperLink1" runat="server" Target="_blank" NavigateUrl="~/Images/IMG_0758-e1470661052985-1080x450.jpg">
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/IMG_0758-e1470661052985-1080x450.jpg"/></asp:HyperLink>
+					</div>
+					<div class="item">
+                        <asp:HyperLink ID="HyperLink2" runat="server" Target="_blank" NavigateUrl="~/Images/IMG_0760-1080x450.jpg">
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/IMG_0760-1080x450.jpg"/></asp:HyperLink>
+					</div>
+					<div class="item">
+                        <asp:HyperLink ID="HyperLink3" runat="server" Target="_blank" NavigateUrl="~/Images/index.png">
+                            <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/index.png" /></asp:HyperLink>
+					</div>
+				</div>
+				<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+				</a>
+				<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+				</a>	
+			</div>
+       
+    <div id="content">
+        <div id="favorite">
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+        </div>
+       <%-- <div id="secondary">
+        <asp:ContentPlaceHolder id="ContentPlaceHolder2" runat="server">
+        </asp:ContentPlaceHolder>
+        </div>--%>
+     </div>
+       
+        </div>
+         <div id="footer">
+           <p>Boutique Noir • Hospitalsgade 3-5 • 8700 Horsens • Tlf.: 27 24 62 42 • Mail: noirhorsens@gmail.com </p> 
+        </div>
+    </form>
+</body>
+</html>
